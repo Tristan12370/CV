@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Geist+Mono:wght@300;400;500&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0A0908;--bg2:#111009;--bg3:#181510;
+  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.12);
+  --text:#F5F0E8;--muted:#8A8070;--dim:#44403A;
+  --accent:#D4A853;--accent2:#A87C2A;
+  --serif:'Fraunces',serif;--mono:'Geist Mono',monospace;--sans:'Geist',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,9,8,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:var(--serif);font-size:1.1rem;font-weight:300;font-style:italic;color:var(--accent);text-decoration:none;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-status{display:flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.7rem;color:var(--muted);}
+.status-dot{width:6px;height:6px;border-radius:50%;background:#4ADE80;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:80px;}
+.hero-left{padding:5rem 3rem;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--border);}
+.hero-eyebrow{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem;display:flex;align-items:center;gap:0.8rem;}
+.hero-eyebrow::before{content:'';width:24px;height:1px;background:var(--accent);}
+.hero-name{font-family:var(--serif);font-size:clamp(3rem,5vw,5.5rem);font-weight:300;line-height:1.05;margin-bottom:0.5rem;}
+.hero-role{font-family:var(--serif);font-size:clamp(1.2rem,2.5vw,2rem);font-weight:300;font-style:italic;color:var(--accent);margin-bottom:2rem;}
+.hero-bio{font-size:0.95rem;color:var(--muted);line-height:1.9;max-width:420px;margin-bottom:2.5rem;}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem;}
+.btn-accent{background:var(--accent);color:#0A0908;padding:0.8rem 1.8rem;font-family:var(--mono);font-size:0.72rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;}
+.btn-accent:hover{background:var(--accent2);color:var(--text);}
+.btn-border{border:1px solid var(--border2);color:var(--muted);padding:0.8rem 1.8rem;font-family:var(--mono);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;}
+.btn-border:hover{border-color:var(--accent);color:var(--accent);}
+.hero-contact{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.contact-link{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.08em;color:var(--dim);text-decoration:none;transition:color 0.2s;}
+.contact-link:hover{color:var(--accent);}
+
+.hero-right{padding:5rem 3rem;display:flex;flex-direction:column;justify-content:center;}
+.skills-section{margin-bottom:3rem;}
+.skills-label{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);margin-bottom:1.2rem;}
+.skill-bars{display:flex;flex-direction:column;gap:0.8rem;}
+.skill-bar{display:flex;align-items:center;gap:1rem;}
+.skill-name{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.05em;color:var(--muted);width:100px;flex-shrink:0;}
+.skill-track{flex:1;height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;}
+.skill-fill{height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:2px;width:0;transition:width 1s ease;}
+.skill-pct{font-family:var(--mono);font-size:0.65rem;color:var(--dim);width:32px;text-align:right;}
+
+.hero-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.hero-stat-box{background:var(--bg2);border:1px solid var(--border);padding:1.2rem;}
+.hero-stat-num{font-family:var(--serif);font-size:2rem;font-weight:300;color:var(--accent);margin-bottom:0.3rem;}
+.hero-stat-label{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);}
+
+/* EXPERIENCE */
+.experience-section{padding:6rem 3rem;max-width:1200px;margin:0 auto;}
+.section-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;}
+.section-label{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem;}
+.section-title{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;}
+.section-count{font-family:var(--mono);font-size:0.7rem;color:var(--dim);}
+.experience-list{display:flex;flex-direction:column;}
+.exp-item{padding:2rem 0;border-top:1px solid var(--border);display:grid;grid-template-columns:200px 1fr auto;gap:2rem;align-items:start;transition:background 0.2s;cursor:pointer;}
+.exp-item:hover{background:var(--bg2);margin:0 -1.5rem;padding:2rem 1.5rem;}
+.exp-date{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.08em;color:var(--dim);padding-top:4px;}
+.exp-content{}
+.exp-role{font-family:var(--serif);font-size:1.1rem;font-weight:300;margin-bottom:0.3rem;}
+.exp-company{font-family:var(--mono);font-size:0.75rem;letter-spacing:0.1em;color:var(--accent);margin-bottom:0.8rem;}
+.exp-desc{font-size:0.88rem;color:var(--muted);line-height:1.7;}
+.exp-tags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.8rem;}
+.exp-tag{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.08em;padding:0.2rem 0.6rem;background:var(--bg3);border:1px solid var(--border);color:var(--dim);}
+.exp-arrow{font-size:1rem;color:var(--dim);transition:all 0.2s;padding-top:4px;}
+.exp-item:hover .exp-arrow{color:var(--accent);transform:translate(3px,-3px);}
+
+/* PROJECTS */
+.projects-section{padding:6rem 3rem;background:var(--bg2);border-top:1px solid var(--border);}
+.projects-inner{max-width:1200px;margin:0 auto;}
+.projects-header{margin-bottom:3rem;}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.project-card{background:var(--bg2);padding:2rem;transition:background 0.2s;cursor:pointer;}
+.project-card:hover{background:var(--bg3);}
+.project-num{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.2em;color:var(--dim);margin-bottom:1.5rem;}
+.project-title{font-family:var(--serif);font-size:1.2rem;font-weight:300;margin-bottom:0.6rem;line-height:1.3;}
+.project-desc{font-size:0.82rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;}
+.project-link{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:0.4rem;}
+.project-tech{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:1rem;}
+.tech-tag{font-family:var(--mono);font-size:0.62rem;color:var(--dim);}
+
+/* CONTACT */
+.contact-section{padding:8rem 3rem;text-align:center;}
+.contact-section h2{font-family:var(--serif);font-size:clamp(2rem,5vw,4.5rem);font-weight:300;font-style:italic;color:var(--accent);margin-bottom:1rem;}
+.contact-section p{font-size:1rem;color:var(--muted);margin-bottom:2.5rem;line-height:1.8;}
+.contact-email{font-family:var(--serif);font-size:clamp(1.2rem,2.5vw,2rem);font-weight:300;color:var(--text);text-decoration:none;display:block;margin-bottom:2rem;transition:color 0.2s;}
+.contact-email:hover{color:var(--accent);}
+.social-row{display:flex;gap:1.5rem;justify-content:center;}
+.social-link{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);text-decoration:none;transition:color 0.2s;}
+.social-link:hover{color:var(--accent);}
+
+/* FOOTER */
+footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.footer-logo{font-family:var(--serif);font-size:0.95rem;font-style:italic;color:var(--accent);}
+.footer-copy{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.1em;color:var(--dim);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s,transform 0.6s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  .hero{grid-template-columns:1fr;}
+  .hero-left,.hero-right{padding:3rem 1.5rem;}
+  .hero-left{border-right:none;border-bottom:1px solid var(--border);}
+  .experience-section,.projects-section,.contact-section{padding:4rem 1.5rem;}
+  .exp-item{grid-template-columns:1fr;gap:0.5rem;}
+  .projects-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo" id="nav-name"></a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-status"><span class="status-dot"></span><span id="nav-status"></span></div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow" id="hero-eyebrow"></p>
+    <h1 class="hero-name" id="hero-name"></h1>
+    <p class="hero-role" id="hero-role"></p>
+    <p class="hero-bio" id="hero-bio"></p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-accent" id="hero-cta1"></a>
+      <a href="#" class="btn-border" id="hero-cta2"></a>
+    </div>
+    <div class="hero-contact" id="hero-contact"></div>
+  </div>
+  <div class="hero-right">
+    <div class="skills-section">
+      <p class="skills-label">Core skills</p>
+      <div class="skill-bars" id="skill-bars"></div>
+    </div>
+    <div class="hero-stats-grid" id="hero-stats"></div>
+  </div>
+</section>
+
+<section class="experience-section" id="experience">
+  <div class="section-header reveal">
+    <div>
+      <p class="section-label">Experience</p>
+      <h2 class="section-title" id="exp-title"></h2>
+    </div>
+    <span class="section-count" id="exp-count"></span>
+  </div>
+  <div class="experience-list" id="exp-list"></div>
+</section>
+
+<section class="projects-section" id="projects">
+  <div class="projects-inner">
+    <div class="projects-header reveal">
+      <p class="section-label">Projects</p>
+      <h2 class="section-title" id="proj-title"></h2>
+    </div>
+    <div class="projects-grid" id="projects-grid"></div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <h2 class="reveal" id="contact-title"></h2>
+  <p class="reveal" id="contact-sub"></p>
+  <a class="contact-email reveal" id="contact-email" href="#"></a>
+  <div class="social-row reveal" id="social-row"></div>
+</section>
+
+<footer>
+  <span class="footer-logo" id="footer-logo"></span>
+  <span class="footer-copy" id="footer-copy"></span>
+</footer>
+
+<script>
+/* ============================================================
+   CONFIG — EDIT ONLY HERE
+   ============================================================ */
+const CONFIG = {
+  name: "James Clarke",
+  year: 2025,
+  navStatus: "Available for work",
+
+  hero: {
+    eyebrow: "Full-stack Developer & Designer",
+    role: "I build things for the web.",
+    bio: "Based in London. I specialise in crafting elegant digital products — from pixel-perfect interfaces to scalable backend systems. 5 years of experience, 20+ shipped products.",
+    cta1: "Get in touch",
+    cta2: "Download CV",
+    cvUrl: "james-clarke-cv.pdf",  // ← Replace with your CV filename or full URL
+    contact: [
+      { text:"james@clarke.dev", url:"mailto:james@clarke.dev" },
+      { text:"github.com/jamesclarke", url:"#" },
+      { text:"London, UK", url:"#" },
+    ]
+  },
+
+  skills: [
+    { name:"React / Next.js", pct:94 },
+    { name:"TypeScript", pct:88 },
+    { name:"Node.js", pct:82 },
+    { name:"UI / Figma", pct:78 },
+    { name:"PostgreSQL", pct:72 },
+  ],
+
+  stats: [
+    { num:"5+", label:"Years experience" },
+    { num:"20+", label:"Projects shipped" },
+    { num:"8", label:"Happy clients" },
+    { num:"3", label:"Open source libs" },
+  ],
+
+  experience: {
+    title: "Where I've worked",
+    count: "5 positions",
+    items: [
+      { date:"2023 — Present", role:"Senior Full-stack Developer", company:"Vercel", desc:"Building the developer experience platform used by millions of developers worldwide. Led the redesign of the CLI tooling and contributed core features to the Next.js framework.", tags:["Next.js","TypeScript","Go","Rust"] },
+      { date:"2021 — 2023", role:"Product Engineer", company:"Linear", desc:"Early employee at Linear. Built the GitHub integration, real-time collaboration features, and the public API used by 500+ integrations.", tags:["React","TypeScript","GraphQL","Postgres"] },
+      { date:"2020 — 2021", role:"Frontend Developer", company:"Figma", desc:"Worked on the core editor team, improving rendering performance and contributing to the component library system.", tags:["WebGL","TypeScript","Canvas","WASM"] },
+      { date:"2019 — 2020", role:"Fullstack Developer", company:"Freelance", desc:"Delivered 12 client projects across e-commerce, SaaS, and marketing websites. Grew to £8K/month revenue.", tags:["React","Node.js","Stripe","AWS"] },
+    ]
+  },
+
+  projects: [
+    { num:"01", title:"Shelf — personal book tracker", desc:"A minimalist app for tracking reading lists, notes, and quotes. Built with Next.js 14, Postgres, and deployed on Vercel.", link:"View project", url:"https://github.com", tech:["Next.js","PostgreSQL","Prisma"] },
+    { num:"02", title:"Palette — design token manager", desc:"An open-source tool for managing design tokens across multiple platforms. 1,200+ GitHub stars, used by 40+ companies.", link:"View on GitHub", url:"https://github.com", tech:["React","TypeScript","Figma Plugin API"] },
+    { num:"03", title:"Beacon — uptime monitoring", desc:"Side project generating £1,200/month ARR. Monitors 10,000+ endpoints with sub-minute alerting and beautiful dashboards.", link:"Visit site", url:"https://example.com", tech:["Next.js","Go","InfluxDB","Redis"] },
+    { num:"04", title:"Type Scale — font tool", desc:"A web-based typographic scale calculator used by 50,000+ designers monthly. Featured on CSS-Tricks and Smashing Magazine.", link:"View project", url:"https://github.com", tech:["Vanilla JS","CSS","SVG"] },
+    { num:"05", title:"Invoice — freelance billing", desc:"A simple, beautiful invoicing tool built for freelancers. PDF generation, recurring invoices, Stripe integration.", link:"View project", url:"https://github.com", tech:["Next.js","Stripe","Puppeteer"] },
+    { num:"06", title:"Capsule — time capsule app", desc:"Write letters to your future self. Encrypted, time-locked, with beautiful email delivery. 8,000 registered users.", link:"Visit site", url:"https://example.com", tech:["React","Node.js","SendGrid","AES"] },
+  ],
+
+  contact: {
+    title: "Let's work together.",
+    sub: "I'm currently open to freelance projects and full-time roles. If you have something interesting in mind, let's talk.",
+    email: "james@clarke.dev",
+    socials: [
+      { text:"GitHub", url:"https://github.com" },
+      { text:"Twitter", url:"https://twitter.com" },
+      { text:"LinkedIn", url:"https://linkedin.com" },
+      { text:"Read.cv", url:"https://read.cv" },
+    ]
+  },
+};
+/* ============================================================
+   END CONFIG
+   ============================================================ */
+
+document.getElementById('nav-name').textContent = CONFIG.name;
+document.getElementById('nav-status').textContent = CONFIG.navStatus;
+document.getElementById('hero-eyebrow').textContent = CONFIG.hero.eyebrow;
+document.getElementById('hero-name').textContent = CONFIG.name;
+document.getElementById('hero-role').textContent = CONFIG.hero.role;
+document.getElementById('hero-bio').textContent = CONFIG.hero.bio;
+document.getElementById('hero-cta1').textContent = CONFIG.hero.cta1;
+document.getElementById('hero-cta2').textContent = CONFIG.hero.cta2;
+document.getElementById('hero-cta2').href = CONFIG.hero.cvUrl;
+document.getElementById('hero-cta2').download = CONFIG.hero.cvUrl;
+document.getElementById('exp-title').textContent = CONFIG.experience.title;
+document.getElementById('exp-count').textContent = CONFIG.experience.count;
+document.getElementById('proj-title').textContent = "Selected work";
+document.getElementById('contact-title').textContent = CONFIG.contact.title;
+document.getElementById('contact-sub').textContent = CONFIG.contact.sub;
+document.getElementById('contact-email').textContent = CONFIG.contact.email;
+document.getElementById('contact-email').href = `mailto:${CONFIG.contact.email}`;
+document.getElementById('footer-logo').textContent = CONFIG.name;
+document.getElementById('footer-copy').textContent = `© ${CONFIG.year} · Built with care`;
+
+document.getElementById('hero-contact').innerHTML = CONFIG.hero.contact.map(c=>`<a href="${c.url}" class="contact-link">${c.text}</a>`).join('');
+
+document.getElementById('skill-bars').innerHTML = CONFIG.skills.map(s=>`
+  <div class="skill-bar">
+    <span class="skill-name">${s.name}</span>
+    <div class="skill-track"><div class="skill-fill" data-pct="${s.pct}"></div></div>
+    <span class="skill-pct">${s.pct}%</span>
+  </div>`).join('');
+
+document.getElementById('hero-stats').innerHTML = CONFIG.stats.map(s=>`
+  <div class="hero-stat-box">
+    <div class="hero-stat-num">${s.num}</div>
+    <div class="hero-stat-label">${s.label}</div>
+  </div>`).join('');
+
+document.getElementById('exp-list').innerHTML = CONFIG.experience.items.map(e=>`
+  <div class="exp-item reveal">
+    <div class="exp-date">${e.date}</div>
+    <div class="exp-content">
+      <div class="exp-role">${e.role}</div>
+      <div class="exp-company">${e.company}</div>
+      <div class="exp-desc">${e.desc}</div>
+      <div class="exp-tags">${e.tags.map(t=>`<span class="exp-tag">${t}</span>`).join('')}</div>
+    </div>
+    <div class="exp-arrow">↗</div>
+  </div>`).join('');
+
+document.getElementById('projects-grid').innerHTML = CONFIG.projects.map(p=>`
+  <div class="project-card reveal">
+    <div class="project-num">${p.num}</div>
+    <div class="project-title">${p.title}</div>
+    <div class="project-desc">${p.desc}</div>
+    <div class="project-tech">${p.tech.map(t=>`<span class="tech-tag">${t}</span>`).join(' · ')}</div>
+    <a href="${p.url||'#'}" target="_blank" class="project-link">${p.link} ↗</a>
+  </div>`).join('');
+
+document.getElementById('social-row').innerHTML = CONFIG.contact.socials.map(s=>`<a href="${s.url}" class="social-link">${s.text}</a>`).join('');
+
+const obs=new IntersectionObserver(e=>{
+  e.forEach(el=>{
+    if(el.isIntersecting){
+      el.target.classList.add('visible');
+      el.target.querySelectorAll('.skill-fill').forEach(fill=>{
+        fill.style.width=fill.dataset.pct+'%';
+      });
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Animate skill bars on load
+setTimeout(()=>{
+  document.querySelectorAll('.skill-fill').forEach(fill=>{
+    fill.style.width=fill.dataset.pct+'%';
+  });
+},500);
+</script>
+</body>
+</html>
